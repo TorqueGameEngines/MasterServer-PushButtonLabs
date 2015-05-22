@@ -1,0 +1,79 @@
+#=============================================================================
+# Pushbutton Labs' Torque Master Server Preferences/Configuration File
+#=============================================================================
+
+
+#-----------------------------------------------------------------------------
+# General Server Settings
+#-----------------------------------------------------------------------------
+
+# Name of the Master Server. Default: "PBMS"
+$name "DotTools.net Master"
+
+# Region the Master Server is in. Default: "Earth"
+$region "North West, America"
+
+# IPv4 address that the Daemon listens and sends on. Default: "0.0.0.0" for All
+# NOTE: IPv6 currently not supported.
+$address "0.0.0.0"
+
+# Port number that the Daemon listens and sends on. Default: 28002
+$port 28002
+
+# How long since the last heartbeat from a server before it is deleted.
+# Default: 180 (3min)
+$heartbeat 180
+
+# Verbosity of log output. Default: 4
+#    0 - No Messages
+#    1 - Error Messages
+#    2 - Warning Messages*
+#    3 - Informative Messages*
+#    4 - All [miscellaneous] Messages*!
+# 
+# * Indicates it includes all the message types above it.
+# 
+$verbosity 4
+
+
+#-----------------------------------------------------------------------------
+# Flood Control Settings
+# 
+# Flood control uses a ticket based approach to deal with remote hosts
+# that are either game clients continously querying us or malicious parties
+# attempting cause an Denial of Service attack by keeping the master busy.
+# 
+# A remote host will be ticketed for every packet of data it sends to this
+# master server, so keep that in mind when setting the maximum of tickets.
+# There's even a setting to incor a severe penalty for sending bad/unknown
+# packets to us of which helps ban the offending remote host a lot sooner.
+# 
+# Once maximum tickets has reached for a remote host they are then temporarily
+# banned. When a remote host is banned they are ignored until the ban time has
+# expired. A remote host is forgotten about after not receiving a packet from
+# them after a time of seconds ($flood::ForgetTime), except when they are
+# currently banned. Once unbanned then the forget time is reset so they are
+# not forgotten too soon.
+#-----------------------------------------------------------------------------
+
+# Maximum number of tickets before a remote host is banned.
+# Default: 300
+$flood::MaxTickets 300
+
+# Time in seconds until the tickets placed on a remote host is reset.
+# Default: 60  (1 minute)
+$flood::TicketsResetTime 60
+
+# Time in seconds for how long a remote host is banned once reaching max tickets.
+# Default: 300 (5 minutes)
+$flood::BanTime 600
+
+# Time in seconds after last hearing from a remote before it's forgotten about.
+# Default: 900 (15 minutes)
+$flood::ForgetTime 900
+
+# Number of tickets placed against remote host for sending bad or
+# unknown formatted packets.
+# Default: 50
+$flood::TicksOnBadMessage 50
+

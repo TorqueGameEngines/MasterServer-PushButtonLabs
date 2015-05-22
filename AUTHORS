@@ -1,0 +1,13 @@
+
+CREDITS
+
+Ben Garney - Original author
+Nick Quijano - Mac OSX porter
+Mike Kuklinski - Revisioning
+Robert West <robert@lscode.net> - LoneStarCode Modifications
+Nathan Martin - [near] complete rewrite, current developer
+
+SPECIAL THANKS
+
+Matthew Shapiro - For getting the ball rolling, and being a curiously effective PR man.
+Dan Noland - For helping me solve an ugly, ugly heap corruption bug.

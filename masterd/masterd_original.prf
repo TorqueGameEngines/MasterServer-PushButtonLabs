@@ -1,0 +1,22 @@
+/This specifies the name of the Master Server. Default: "PBMS"
+$name DotToolsMaster
+/This specifies the region the Master Server is in. Default: "Earth"
+$region NorthAmerica
+/This specifies the port that the Daemon listens and sends on. Default: 28002
+$port 28002
+/This specifies how long since the last heartbeat from a server before it is deleted. Default: 180 (3min)
+$heartbeat 180
+/This specifies the time between RAM flushes, and keeps the flood control cache clear. Default: 1800 (30min)
+$flushtime 1800
+/This coincides with the 'spamcount' variable. Basically, if the user exceeds spamcount packets in spamtime seconds, he is banned for bantime. Default: 1
+$spamtime 1
+/This coincides with the 'spamtime' variable. Basically, if the user exceeds spamcount packets in spamtime seconds, he is banned for bantime. Default: 5
+$spamcount 5
+/The length of time in seconds that a user is banned if he is cought flooding the Daemon. Default: 30
+$bantime 30
+/Verbosity. Default: 3
+/0 - No Messages
+/1 - Critical Messages
+/2 - Most Messages
+/3 - All Messages
+$verbosity 3

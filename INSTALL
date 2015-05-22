@@ -1,0 +1,46 @@
+===============================================================================
+PushButton Master Server Build Instructions
+===============================================================================
+
+1) Be sure to have CMake v2.6 or later installed on your build host
+  RPM using Linux distributions:
+	yum whatprovides cmake
+	yum install <packageName>
+
+  APT using Linux distributions:
+	apt-cache search cmake
+	apt-get install <packageName>
+
+  Others get cmake from:
+	http://www.cmake.org/
+
+
+2) While in the pbms/ directory run the following to create the Makefile(s)
+  cmake .
+
+
+3) Now run make:
+  make
+
+
+4) You should now have a binary in pbms/masterd/masterd so run it:
+  ./masterd/masterd
+
+  On first run it will create a masterd.prf preferences/confituration file
+  in the current directory, edit it to your liking, and restart the daemon.
+
+
+Pro Tip: pbms currently does not deattach its self and go into background
+	 process on its own. There are several ways to deal with this:
+
+	 A) Use `screen`, run the masterd binary, and press Ctrl+A then D to
+	    de-attach fron the screen process and get dropped back to the
+	    terminal again. Of which you can resume anytime using `screen -r`.
+
+	 B) Use `nohup`:
+	    nohup masterd/masterd &
+
+	 C) Try daemonize from http://software.clapper.org/daemonize/
+
+
+The End

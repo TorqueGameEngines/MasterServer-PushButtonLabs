@@ -1,0 +1,105 @@
+PushButton Master Server 0.96
+by Nathan Martin <nmartin@gmail.com>
+
+
+Original ReadME:
+-------------------------------------------------
+Ben Garney <bgarney@pblabs.com>
+
+Howdy.
+
+This is a very brief approximation of release notes.
+
+The PBMS is licensed under the GPL.
+
+The PBMS is being developed by:
+	Ben Garney	      <bgarney@pblabs.com>	- Core app development
+	Nick Quijano	<niuj@sourceforge.net>	- Mac OSX port
+       Mike Kuklinski    <admin@kuattech.com>    - Windows/VC8 port
+       Robert West        <robert@lscode.net>    - LoneStarCode Modifications
+       Nathan Martin      <nmartin@gmail.com>    - Complete rewrite of master code, sessioning, and RAM store.
+
+The PBMS consists of three modules:
+	masterd		- server
+	mbclient	- incomplete client
+	network		- support layer
+
+You need plib's NET and UL modules compiled and installed. You can 
+get plib from http://plib.sf.net/ - the configure incantation to get
+it to work if you don't have sound or graphics is:
+
+Currently, this package is set up for Visual C++ 8 (express).
+
+You will also need SQLite 3. You can get it from http://www.sqlite.com/.
+
+mbclient doesn't really work at this point. :)
+
+masterd will be in the masterd directory, ready to run, assuming
+no errors pop up.
+
+This is a prerelease of the source, so please check up on my plans in GarageGames
+so that you can get the real, final package when it comes out RSN(tm).
+
+Thanks for giving this a try!
+Ben Garney
+bgarney@pblabs.com
+
+I have updated key components. I fixed up security holes, added flood protection, added a preference system, and added SQLite 3 support.
+
+Mike Kuklinski
+admin@kuattech.com
+-------------------------------------------------
+
+_____________
+
+ 2011-06-08
+_____________
+
+I have almost completely gutted out nearly everything and rewrote it all from
+scratch. [Almost] everything has been changed to use the same data types that
+Torque uses, such as instead of using unsigned int it is U32, etc..
+
+masterd core -- new class MasterdCore to handle initialization and main thread
+                management including better configuration/preferences handling.
+
+Packet class -- cleaned up the integer read and write functions with ones that
+                don't do per byte read/write, but array based I/O operations
+                using readBytes and writeBytes(). The read/write functions are
+                buffer size aware now to prevent any possible buffer underruns
+                (read) and overruns (write).
+
+TorqueIO     -- The network message type handlers have been updated to be more
+                compliant with the torque game client, and resending of list
+                packets actually does now work too. Also querying the server
+                for game and mission types now works too.
+
+Session      -- SessionHandler module has had, just like many other modules, a
+                complete rewrite. SessionHandler is actually gone, but replaced
+                with a class called FloodControl and its original purpose was
+                to just keep track of remote hosts enough to ban any of them
+                suspected of attempting a Denial of Service attack, but later
+                on it was also useful to track the sessions of game clients'
+                server query results too. Much better than recreating another
+                class that does exactly the same thing as FloodControl and only
+                track game server list query results. Also note that in the
+                near future FloodControl will be renamed to something like
+                PeerControl or PeerManager instead.
+
+ServerStore  -- And ServerStoreRAM are the same thing right now. ServerStore is
+                is currently only available as a RAM option as SQLite3 was
+                already removed by MikeK, which is fine really cause SQLite is
+                slow anyway. I pretty much rewrote this module to use the std
+                map container to improve server record lookup time and makes
+                it a lot easier to maintain than manually handling linked-lists.
+
+MasterdTransport
+             -- Solved odd non-responsive / infinite stall by having the class
+                actually using poll() instead of ponding on recvfrom() all the
+                time. Of course this means this code will only currently work
+                on operating systems that support poll() such as Linux and BSD.
+
+And other minor modifications to other files for improvement. This release is
+not entirely bug free. ;-)
+
+Nathan Martin
+nmartin@gmail.com
