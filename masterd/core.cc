@@ -34,7 +34,8 @@ using namespace std;
 
 #if !defined(WIN32) && defined(__GNUC__)
 	#include <signal.h>
-//	#include <sys/types.h>
+	#include <sys/types.h>
+        #include <unistd.h>
 	#define stricmp strcasecmp
 	#define strnicmp strncasecmp
 #endif
@@ -191,7 +192,7 @@ char* strnextfield(char *str, size_t *clen)
 
 	// update previous field's length to caller
 	if(clen)
-		*clen = (U32)p - (U32)str;
+		*clen = (U64)p - (U64)str;
 
 	// find the field after whitespaces
 	num = strspn(p, whitespaces);
@@ -765,7 +766,7 @@ void MasterdCore::CreatePrefs(void)
 			}
 			
 			// figure out string length before newline
-			len = ((U32)str2 - (U32)str);
+			len = ((U64)str2 - (U64)str);
 			
 			// write out string just before newline
 			fout << CONFIG_LINE_COMMENT;
